@@ -26,7 +26,6 @@ const AdminLogin = () => {
         try {
             setLoading(true)
             const result = await loginAdmin(input)
-            console.log(result);
             navigate('/admin-panel')
         }
         catch(err){
@@ -37,25 +36,26 @@ const AdminLogin = () => {
         }
     }
     return (
-        <section class="bg-purple-100 rounded-2xl p-5 mb-10">
-            <div class="container mx-auto">
-                <div class="py-28">
-                    <h2 class="text-center text-5xl font-bold">
+        <section className="bg-purple-200 rounded-2xl p-5 mb-5">
+            <div className="container mx-auto">
+                <div className="py-5">
+                    <h2 className="text-center text-5xl font-bold">
                         Admin Login
                     </h2>
                 </div>
-                <div class=" w-1/2 text-center mx-auto mb-10 bg-white p-10 rounded-2xl shadow-lg">
-                    <h2 class="text-center text-3xl font-bold text-gray-700">Login</h2><br />
-                    <div class="border flex flex-col justify-center p-12">
-                        <input onChange={handleInput} class="border border-black p-3 rounded-2xl font-bold text-lg shadow mb-5" type="email"
+                <div className=" w-1/2 text-center mx-auto mb-10 bg-white p-5 rounded-2xl shadow-lg">
+                    <h2 className="text-center text-3xl font-bold text-gray-700">Login</h2><br />
+                    <div className=" flex flex-col justify-center p-12">
+                        <input onChange={handleInput} className="border border-black p-3 rounded-2xl font-bold text-lg shadow mb-5" type="email"
                             name='email' placeholder="Enter E-mail" />
 
-                        <input onChange={handleInput} class="border border-black p-3 rounded-2xl font-bold text-lg shadow" type="password"
+                        <input onChange={handleInput} className="border border-black p-3 rounded-2xl font-bold text-lg shadow" type="password"
                             name='password' placeholder="Enter Password" />
-                        {error && <h3 class="mb-5 font-bold text-red-600 text-lg text-left">{error}</h3>}
-                        <div class="flex justify-center">
+                        {error && <h3 className="mb-5 font-bold text-red-600 text-lg text-left">{error}</h3>}
+                        <div className="flex justify-center">
                             <button onClick={handleSubmit}
-                                class="bg-purple-600 text-lg text-white p-3 rounded-2xl hover:bg-purple-900 mt-5">{loading ? 'Loading...' : 'Submit'}</button>
+                                disabled={loading}
+                                className="bg-purple-600 text-lg text-white p-3 rounded-2xl hover:bg-purple-900 mt-5">{loading ? 'Loading...' : 'Submit'}</button>
                         </div>
                     </div>
                 </div>
