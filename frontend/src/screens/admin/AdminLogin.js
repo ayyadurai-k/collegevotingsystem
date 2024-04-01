@@ -55,7 +55,7 @@ const AdminLogin = () => {
                         <div className="flex justify-center">
                             <button onClick={handleSubmit}
                                 disabled={loading}
-                                className="bg-purple-600 text-lg text-white p-3 rounded-2xl hover:bg-purple-900 mt-5">{loading ? 'Loading...' : 'Submit'}</button>
+                                className="bg-purple-600 text-lg text-white px-2 py-0.5 rounded-xl font-bold mt-3 hover:bg-purple-900 mt-5">{loading ? 'Loading...' : 'Submit'}</button>
                         </div>
                     </div>
                 </div>

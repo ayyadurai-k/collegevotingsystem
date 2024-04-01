@@ -79,13 +79,13 @@ const Home = () => {
             <div className="flex justify-between">
               <button
                 onClick={() => navigate("/admin-login")}
-                className="bg-red-500 rounded-2xl p-4 text-medium text-white font-bold hover:bg-red-600"
+                className="bg-purple-600 rounded-2xl p-4 text-medium text-white font-bold hover:bg-purple-700"
               >
                 Admin Panel
               </button>
               <button
                 onClick={() => navigate("/result")}
-                className="flex  bg-red-500 rounded-2xl p-4 text-medium text-white font-bold hover:bg-red-600"
+                className="flex  bg-purple-600 rounded-2xl p-4 text-medium text-white font-bold hover:bg-purple-700"
               >
                 Results
               </button>

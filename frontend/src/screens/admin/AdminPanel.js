@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createPoll, deletePoll, listPolls } from "../../api/voteAPI";
 import { useNavigate } from "react-router-dom";
+import { logoutAdmin } from "../../api/adminAPI";
 
 const AdminPanel = () => {
   const navigate = useNavigate();
@@ -11,12 +12,25 @@ const AdminPanel = () => {
 
   const handleDelete = async () => {
     try {
-      const result = await deletePoll();
+      await deletePoll();
       setPoll(null);
     } catch (err) {
       setError(err.response.data.message);
     }
   };
+
+  const handleLogout = async () => {
+    try {
+
+      async function api() {
+        await logoutAdmin()
+        navigate("/")
+      } api()
+    }
+    catch (err) {
+
+    }
+  }
 
   //COMPONENT 1
   const [nominees, setNominees] = useState([]);
@@ -26,7 +40,7 @@ const AdminPanel = () => {
   const [loading, setLoading] = useState(false);
 
   const handleAdd = () => {
-    if (nominee.length != 10) {
+    if (nominee.length !== 10) {
       setNominee("");
       return setError1("Invalid Registration Number...!");
     }
@@ -42,7 +56,15 @@ const AdminPanel = () => {
     setNominee("");
     setError1(null);
   };
-
+  const handleNomineeDelete = (e,deleteNominee) => {
+    e.preventDefault();
+    const tempNominees = nominees.filter(nominee=>nominee!==deleteNominee)
+    setNominees((prev)=>{
+      return [
+        ...tempNominees
+      ]
+    })
+  }
   useEffect(() => {
     async function api() {
       try {
@@ -79,12 +101,20 @@ const AdminPanel = () => {
       {component === 0 && (
         <section className="bg-purple-200 rounded-2xl p-5 mb-10">
           <div className="py-10">
-            <button
-              onClick={() => navigate("/")}
-              className="bg-white rounded px-2 py-1 font-bold shadow"
-            >
-              Home
-            </button>
+            <div className="flex justify-between item-center">
+              <button
+                onClick={() => navigate("/")}
+                className="bg-white rounded px-2 py-1 font-bold shadow"
+              >
+                Home
+              </button>
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 text-white rounded px-2 py-1 font-bold shadow"
+              >
+                Logout
+              </button>
+            </div>
             <h2 className="text-center text-5xl font-bold">Admin Panel</h2>
             <h4 className="text-left text-5xl font-italic ml-8 mt-8">
               Polls:-
@@ -108,7 +138,7 @@ const AdminPanel = () => {
                   {poll.nominees.map((nominee, index) => (
                     <li
                       key={index}
-                      className="bg-purple-500 my-0.5 mx-4 rounded p-1"
+                      className="bg-purple-300 text-gray-700 my-0.5 mx-4 rounded p-1"
                     >
                       {nominee.name}({nominee.regno})
                     </li>
@@ -201,15 +231,20 @@ const AdminPanel = () => {
                       >
                         Nominees:-
                       </label>
-                      <div className="bg-purple-400 p-3 mt-3">
-                        <div>
+                      <div className="bg-purple-400 rounded-xl p-3 mt-3">
+                        <div className="">
                           {nominees.map((nominee, index) => (
-                            <p
+                            <div
                               key={index}
-                              className="bg-white p-2 text-black font-bold m-1"
+                              className="bg-white flex justify-between rounded-xl p-2 text-black font-bold m-1"
                             >
-                              {nominee}
-                            </p>
+                              <p className="">{nominee}</p>
+                              <button onClick={(e)=>handleNomineeDelete(e,nominee)} className="text-white bg-red-500 rounded font-bold p-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                </svg>
+                              </button>
+                            </div>
                           ))}
                         </div>
                       </div>
