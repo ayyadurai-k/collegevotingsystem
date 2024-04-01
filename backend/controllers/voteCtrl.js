@@ -4,7 +4,7 @@ import ErrorHandler from "../utils/ErrorHandler.js";
 import Vote from "../models/voteMdl.js";
 import sendResponse from "../utils/sendResponse.js";
 import { checkEmpty } from "../utils/validate.js";
-import { generateOTP, sendOTP } from "../utils/otp.js";
+import { generateOTP, getSumOfOTP, sendOTP } from "../utils/otp.js";
 import { getExpiryTime } from "../utils/time.js";
 
 export const createPoll = asyncError(async (req, res, next) => {
@@ -118,7 +118,8 @@ export const enterOTP = asyncError(async (req, res, next) => {
   const { voters } = poll;
   const voter = voters.find((voter) => voter.regno === regno);
   if (voter) return next(new ErrorHandler("Your Vote Is Already Exists...!"));
-  if (user.otp.num != otp)
+  console.log(getSumOfOTP(user.otp.num),"  ",otp);
+  if (getSumOfOTP(user.otp.num) !== parseInt(otp))
     return next(new ErrorHandler("Invalid OTP...!", 400)); // CHECK OTP IS  EQUAL OR NOT
   // CHECK OTP EXPIRES TIME
   const otpExpiresTime = user.otp.expiresTime.getTime();

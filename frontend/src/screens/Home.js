@@ -113,10 +113,10 @@ const Home = () => {
                       </h2>
                       <div className="flex justify-center">
                         <button
-                          className="bg-purple-600 text-lg text-white p-5 rounded-2xl hover:bg-purple-900 mt-5"
+                          className="bg-green-600 text-lg text-white font-semibold px-3 p-2 rounded-xl hover:bg-green-700 mt-5"
                           onClick={() => handleVote(nominee)}
                         >
-                          vote
+                          Vote
                         </button>
                       </div>
                     </div>
@@ -144,9 +144,15 @@ const Home = () => {
         <section className="bg-purple-200 rounded-2xl p-5 ">
           <div className="container mx-auto">
             <div className="">
+              <button
+                onClick={() => setComponent(0)}
+                className="bg-white px-3 py-1 rounded font-bold"
+              >
+                Back
+              </button>
               <h2 className="text-center text-5xl font-bold">Voting System</h2>
             </div>
-            <div className=" w-1/2 text-center mx-auto m-5 bg-white p-5 rounded-2xl shadow-lg">
+            <div className=" w-1/2 text-center mx-auto m-5 bg-white p-2 rounded-2xl shadow-lg">
               <div className="flex justify-center mb-5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -154,7 +160,7 @@ const Home = () => {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="w-20 h-20 text-red-500"
+                  className="w-20 h-20 text-purple-600"
                 >
                   <path
                     strokeLinecap="round"
@@ -170,11 +176,11 @@ const Home = () => {
               <h2 className="text-center p-2 text-3xl text-gray-600">
                 {selectedNominee.regno} <br />({selectedNominee.name})
               </h2>
-              <div className="border flex flex-col justify-center p-2">
+              <div className=" flex flex-col justify-center p-2">
                 <input
                   onChange={(e) => setRegNo(e.target.value)}
                   value={regNo}
-                  className="border border-black p-3 rounded-2xl font-bold text-lg shadow"
+                  className="border w-1/2 mx-auto border-black p-3 rounded-2xl font-bold text-lg shadow"
                   type="text"
                   id="number"
                   placeholder="Enter Your RegNo"
@@ -204,6 +210,12 @@ const Home = () => {
       {component === 2 && (
         <section className="bg-purple-200 rounded-2xl p-5 mb-5">
           <div className="container mx-auto">
+            <button
+              onClick={() => setComponent(0)}
+              className="bg-white px-3 py-1 rounded font-bold"
+            >
+              Back
+            </button>
             <div className="py-28">
               <h2 className="text-center text-5xl font-bold">
                 OTP Verification
@@ -231,7 +243,8 @@ const Home = () => {
                 OTP has been sent to your college Email Id
               </h2>
               <br />
-              <div className="flex justify-center p-2">
+              <div className="flex flex-col justify-center p-2">
+                <p className="font-bold text-gray-600">Please Enter OTP Within 5 Minutes</p>
                 <input
                   className="border border-black p-3 rounded-2xl font-bold text-lg shadow"
                   type="number"
@@ -239,7 +252,7 @@ const Home = () => {
                   name="otp"
                   value={otp}
                   onChange={(e) => setOTP(e.target.value)}
-                  placeholder="Enter OTP"
+                  placeholder="Enter Sum Of OTP digits"
                 />
               </div>
               {invalidOTP && (
@@ -247,6 +260,13 @@ const Home = () => {
                   {invalidOTP}
                 </h3>
               )}
+              <div>
+                <p className="flex flex-col font-bold text-left text-red-500">
+                  <span>OTP Contains 6 Digits , Please Enter the Sum Of The Digits</span>
+                  <span>Eg , OTP : 654321  </span>
+                  <span> You have to enter : 6+5+4+3+2+1 = 21</span>
+                </p>
+              </div>
               <div className="flex justify-center">
                 <button
                   onClick={confirmOTP}

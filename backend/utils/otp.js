@@ -31,3 +31,14 @@ export const sendOTP = (to, otp) => {
 
     return transporter.sendMail(mailOptions);
 }
+
+
+export const getSumOfOTP = (otp) => {
+    let sum = 0;
+    while (otp > 0) {
+        const rem = otp % 10;
+        sum+=rem;
+        otp=Math.floor(otp/10)
+    }
+    return sum
+}
